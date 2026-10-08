@@ -6,7 +6,7 @@ name: my-fedora-cosmic
 description: This is my personal OS image.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/silverblue-main
+base-image: ghcr.io/blue-build/base-images/fedora-cosmic
 image-version: latest # You can pin to a specific version of Fedora as well
 
 # module configuration, executed in order
@@ -21,10 +21,19 @@ modules:
     repos:
       copr:
         - atim/starship
+        - scottames/ghostty
     install:
       packages:
         - micro
         - starship
+        - ghostty
+        - git
+        - gh
+        - fastfetch
+        - https://dl.google.com/linux/direct/google-chrome-beta_current_x86_64.rpm
+        - zsh
+        - zsh-autosuggestions
+        - zsh-syntax-highlighting
     remove:
       packages:
         # example: removing firefox (in favor of the flatpak)
@@ -38,8 +47,10 @@ modules:
         scope: system
         # If no repo information is specified, Flathub will be used by default
         install: # system flatpaks we want all users to have and not remove
-          - org.mozilla.firefox
-          - org.gnome.Loupe
+          - io.github.kolunmi.Bazaar
+          - com.surfshark.Surfshark
+          - io.github.mpc_qt.mpc-qt
+          - com.warlordsoftwares.wallpaper-app-4kwall
       - scope: user # Also add Flathub user repo, but no user packages
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
